@@ -6,9 +6,9 @@
 </style>
 
 <?php 
-	echo "<p>" . anchor('candystore/index','Back') . "</p>";
+	echo "<p>" . anchor('admin/index','Back') . "</p>";
 	
-	echo form_open_multipart('candystore/create');
+	echo form_open_multipart('admin/create');
 		
 	echo form_label('Name'); 
 	echo form_error('name');
