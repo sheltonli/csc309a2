@@ -1,4 +1,4 @@
-<h2>Product Table</h2>
+<h2>Buy some Candy!! Nom Nom..</h2>
 <?php 
 		echo "<p>" . anchor('client/checkout','Checkout') . "</p>";
  	  

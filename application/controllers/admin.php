@@ -69,7 +69,7 @@ class Admin extends CI_Controller {
 		$this->load->model('product_model');
 		$product = $this->product_model->get($id);
 		$data['product']=$product;
-		$this->load->view('product/read.php',$data);
+		$this->load->view('product/adminread.php',$data);
 	}
 
 	function editForm($id) {

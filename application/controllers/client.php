@@ -34,11 +34,15 @@ class Client extends CI_Controller {
 
 	}
 
+	function checkout() {
+		$this->load->view('checkout/checkout.php');
+	}
+
         function read($id) {
                 $this->load->model('product_model');
                 $product = $this->product_model->get($id);
                 $data['product']=$product;
-                $this->load->view('product/read.php',$data);
+                $this->load->view('product/clientread.php',$data);
         }
 
 }
