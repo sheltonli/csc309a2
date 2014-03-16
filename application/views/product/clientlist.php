@@ -1,6 +1,7 @@
 <h2>Buy some Candy!! Nom Nom..</h2>
 <?php 
-		echo "<p>" . anchor('client/checkout','Checkout') . "</p>";
+		echo "<p>" . anchor('client/gotocheckout','Checkout') . "</p>";
+		echo "<p>" . anchor('client/viewcart','View Cart') . "</p>";
  	  
 		echo "<table>";
 		echo "<tr><th>Name</th><th>Description</th><th>Price</th><th>Photo</th></tr>";

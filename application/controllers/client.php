@@ -35,7 +35,15 @@ class Client extends CI_Controller {
 	}
 
 	function checkout() {
+		//Checkout. This function should collect payment information (credit card number and expiry date) and display a printable receipt (a simple example that shows how to print from JavaScript is available here).
+	}
+
+	function gotocheckout() {
 		$this->load->view('checkout/checkout.php');
+	}
+
+	function viewcart() {
+		$this->load->view('checkout/cart.php');
 	}
 
         function read($id) {
