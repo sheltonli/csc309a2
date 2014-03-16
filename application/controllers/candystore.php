@@ -47,4 +47,17 @@ class CandyStore extends CI_Controller {
 			redirect("client", "refresh");
 		}
 	}
+
+	function login(){
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+
+		if ($this->form_validation->run() == false){
+			$this->load->view('welcome/signin.php');
+		} else {
+			redirect("client", "refresh");
+		}
+	}
 }
