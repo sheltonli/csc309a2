@@ -24,6 +24,10 @@
     <body>
         <?php 
         	echo "<p>" . anchor('candystore/index','Back') . "</p>";
+
+            echo validation_errors();
+            echo form_open('candystore/register');
+
         	echo form_label('Username');
             echo form_error('Username');
             echo form_input('username', set_value('username'), "required");

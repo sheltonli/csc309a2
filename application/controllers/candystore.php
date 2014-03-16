@@ -42,7 +42,7 @@ class CandyStore extends CI_Controller {
 		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|min_length[5]|max_length[30]|matches[password]');
 
 		if ($this->form_validation->run() == false){
-			$this->load->view('signup.php');
+			$this->load->view('welcome/signup.php');
 		} else {
 			redirect("client", "refresh");
 		}
