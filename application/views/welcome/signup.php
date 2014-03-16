@@ -25,11 +25,10 @@
         <?php 
         	echo "<p>" . anchor('candystore/index','Back') . "</p>";
 
-            echo validation_errors();
             echo form_open('candystore/register');
 
         	echo form_label('Username');
-            echo form_error('Username');
+            echo form_error('username');
             echo form_input('username', set_value('username'), "required");
 
             echo form_label('First Name');
@@ -46,11 +45,11 @@
 
             echo form_label('Password');
             echo form_error('password');
-            echo form_input('password', "", "id='pass1' required");
+            echo form_password('password', "", "id='pass1' required");
 
             echo form_label('Password Confirmation');
             echo form_error('passconf');
-            echo form_input('passconf', "", "id='pass2' required oninput='checkPassword()'");
+            echo form_password('passconf', "", "id='pass2' required oninput='checkPassword()'");
 
             echo form_submit('submit', 'Register');
             echo form_close();
