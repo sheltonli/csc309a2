@@ -16,6 +16,7 @@ class Client extends CI_Controller {
  */
 
 		$this->load->library('upload', $config);
+		$this->load->library('session');
 
 	}
 
@@ -26,12 +27,31 @@ class Client extends CI_Controller {
 		$this->load->view('product/clientlist.php',$data);
 	}
 
-	function add() {
+	function add($id) {
+		if (!$this->session->userdata($id)) {
+			//if this isn't in the cart
+			//add it to the cart with quantity 1
+			$this->session->set_userdata($id, 1);
 
+		} else {
+			//increment quantity by 1
+			$this->session->set_userdata($id, $this->session->userdata($id) + 1);
+		}
+		redirect("client/index","refresh");
 	}
 
-	function remove() {
-
+	function remove($id) {
+		if ($this->session->userdata($id)) {
+			//if it is in the cart
+			//reduce by 1
+			$this->session->set_userdata($id, $this->session->userdata($id) - 1);
+			
+			if ($this->session->userdata($id) == 0) {
+				//remove from the cart
+				$this->session->unset_userdata($id);
+			}
+		}
+		redirect("client/index","refresh");
 	}
 
 	function checkout() {
