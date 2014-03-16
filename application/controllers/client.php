@@ -77,7 +77,7 @@ class Client extends CI_Controller {
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('ccnum', 'Credit Card Number', 'required|exact_length[16]|numeric');
-		$this->form_validation->set_rules('ccexpmonth', 'Expiry Month', 'required');
+		$this->form_validation->set_rules('ccexpmonth', 'Expiry Month', 'required|callback_ccmonth_check');
 		$this->form_validation->set_rules('ccexpyear', 'Expiry Year', 'required|callback_ccexp_check');
 
 		if ($this->form_validation->run() == false){
@@ -85,6 +85,17 @@ class Client extends CI_Controller {
 		} else {
 			redirect("client", "refresh");
 		}
+	}
+
+	public function ccmonth_check($ccexpmonth){
+		if ($ccexpmonth <= 0){
+			$this->form_validation->set_message('ccmonth_check', 'Invalid month.');
+			return false;
+		} else if ($ccexpmonth > 12){
+			$this->form_validation->set_message('ccmonth_check', 'Invalid month.');
+			return false;
+		}
+		return true;
 	}
 
 	public function ccexp_check(){
@@ -98,7 +109,7 @@ class Client extends CI_Controller {
 		if (($year % 100) > $ccyear){
 			$this->form_validation->set_message('ccexp_check', 'Your card is expired.');
 			return false;
-		} else if (($year % 100) == $$ccyear) {
+		} else if (($year % 100) == $ccyear) {
 			if ($month > $ccmonth){
 				$this->form_validation->set_message('ccexp_check', 'Your card is expired.');
 				return false;
