@@ -98,7 +98,7 @@ class Client extends CI_Controller {
 		if (($year % 100) > $ccyear){
 			$this->form_validation->set_message('ccexp_check', 'Your card is expired.');
 			return false;
-		} else if (($year % 100) == $$ccyear) {
+		} else if (($year % 100) == $ccyear) {
 			if ($month > $ccmonth){
 				$this->form_validation->set_message('ccexp_check', 'Your card is expired.');
 				return false;
