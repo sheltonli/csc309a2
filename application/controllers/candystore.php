@@ -38,8 +38,8 @@ class CandyStore extends CI_Controller {
 		$this->form_validation->set_rules('first', 'First Name', 'required|min_length[1]|max_length[30]');
 		$this->form_validation->set_rules('last', 'Last Name', 'required|min_length[1]|max_length[30]');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|max_length[30]');
-		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|min_length[5]|max_length[30]|matches[password]');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[30]');
+		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|min_length[6]|max_length[30]|matches[password]');
 
 		if ($this->form_validation->run() == false){
 			$this->load->view('welcome/signup.php');
