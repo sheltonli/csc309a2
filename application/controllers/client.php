@@ -66,11 +66,31 @@ class Client extends CI_Controller {
 		$this->load->view('checkout/cart.php');
 	}
 
-        function read($id) {
-                $this->load->model('product_model');
-                $product = $this->product_model->get($id);
-                $data['product']=$product;
-                $this->load->view('product/clientread.php',$data);
-        }
+    function read($id) {
+        $this->load->model('product_model');
+        $product = $this->product_model->get($id);
+        $data['product']=$product;
+        $this->load->view('product/clientread.php',$data);
+    }
 
+    function paymentconf(){
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('ccnum', 'Credit Card Number', 'required|exact_length[16]|numeric');
+		$this->form_validation->set_rules('ccexp', 'Expiry Date (MM/YY)', 'required|callback_ccexp_check');
+
+		if ($this->form_validation->run() == false){
+			$this->load->view('checkout/checkout.php');
+		} else {
+			redirect("client", "refresh");
+		}
+	}
+
+	public function ccexp_check($ccexp){
+		if (preg_match("/\d{2}-\d{2}/", $ccexp) == 0){
+			$this->form_validation->set_message('ccexp_check', 'Invalid Expiry Date, should be MM-YY');
+			return false;
+		}
+		return true;
+	}
 }
