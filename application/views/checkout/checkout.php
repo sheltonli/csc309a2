@@ -23,11 +23,11 @@
 
             echo form_label('Expiry Month');
             echo form_error('ccexpmonth');
-            echo form_input('ccexpmonth', "", "required title='Please enter your card's expiry month.");
+            echo form_input('ccexpmonth', "", "required pattern='\d{2}' title='Please enter your card's expiry month.");
 
             echo form_label('Expiry Year');
             echo form_error('ccexpyear');
-            echo form_input('ccexpyear', "", "required title='Please enter your card's expiry year.");
+            echo form_input('ccexpyear', "", "required pattern='\d{2}' title='Please enter your card's expiry year.");
 
             echo form_submit('submit', 'Confirm Order');
             echo form_close();

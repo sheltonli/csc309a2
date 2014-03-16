@@ -87,15 +87,19 @@ class Client extends CI_Controller {
 		}
 	}
 
-	public function ccexp_check($ccexpmonth, $ccexpyear){
+	public function ccexp_check(){
 		$date = getdate();
 		$month = $date['mon'];
 		$year = $date['year'];
-		if (($year % 100) > $ccexpyear){
+
+		$ccmonth = $this->input->post('ccexpmonth');
+   		$ccyear = $this->input->post('ccexpyear');
+
+		if (($year % 100) > $ccyear){
 			$this->form_validation->set_message('ccexp_check', 'Your card is expired.');
 			return false;
-		} else if (($year % 100) == $$ccexpyear) {
-			if ($month > $ccexpmonth){
+		} else if (($year % 100) == $$ccyear) {
+			if ($month > $ccmonth){
 				$this->form_validation->set_message('ccexp_check', 'Your card is expired.');
 				return false;
 			}
