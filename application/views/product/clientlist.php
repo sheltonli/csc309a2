@@ -16,6 +16,11 @@
 			echo "<td>" . anchor("client/remove/$product->id",'Remove Candy from Cart',"onClick='return confirm(\"Do you really want to remove this item?\");'") . "</td>";
 			echo "<td>" . anchor("client/add/$product->id",'Add Candy to Cart') . "</td>";
 			echo "<td>" . anchor("client/read/$product->id",'View') . "</td>";
+			if ($this->session->userdata($product->id)) {
+				echo"<td>". $this->session->userdata($product->id) . "</td>";
+			} else {
+				echo"<td>" . 0 . "</td>";
+			}
 				
 			echo "</tr>";
 		}

@@ -20,10 +20,14 @@ class Admin extends CI_Controller {
 	}
 
 	function index() {
-		$this->load->model('product_model');
-		$products = $this->product_model->getAll();
-		$data['products']=$products;
-		$this->load->view('product/adminlist.php',$data);
+		if ($this->session->userdata("loggedin")) {
+			$this->load->model('product_model');
+			$products = $this->product_model->getAll();
+			$data['products']=$products;
+			$this->load->view('product/adminlist.php',$data);
+		} else {
+			redirect("candystore","refresh");
+		}
 	}
 
 	function newForm() {
