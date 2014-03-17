@@ -1,5 +1,5 @@
 <?php
-
+ 
 class Client extends CI_Controller {
 
 
@@ -86,7 +86,13 @@ class Client extends CI_Controller {
 		if ($this->form_validation->run() == false){
 			$this->load->view('checkout/checkout.php');
 		} else {
-			redirect("client", "refresh");
+			//display the printable recepit
+			$this->load->model('product_model');
+			$products = $this->product_model->getAll();
+			$data['products']=$products;
+			$this->load->view('checkout/receipt.php', $data);	
+			//email the receipt
+			//redirect("client", "refresh");
 		}
 	}
 
