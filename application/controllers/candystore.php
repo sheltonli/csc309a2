@@ -55,7 +55,8 @@ class CandyStore extends CI_Controller {
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_login');
+
 
 		if ($this->form_validation->run() == false){
 			$this->load->view('welcome/signin.php');
@@ -65,5 +66,14 @@ class CandyStore extends CI_Controller {
 			//go to the client page
 			redirect("client", "refresh");
 		}
+	}
+
+	public function check_login(){
+		$is_logged_in = $this->user_model->login();
+		if (!$is_logged_in){
+			$this->form_validation->set_message('check_login', 'Invalid Username/Password');
+			return false;
+		}
+		return true;
 	}
 }

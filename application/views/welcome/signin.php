@@ -17,13 +17,12 @@
 			echo "<p>" . anchor('candystore/loadclient','client-succes-link-remove-later') . "</p>";
 
             echo form_open('candystore/login');
+            echo validation_errors();
 
         	echo form_label('Username');
-            echo form_error('username');
             echo form_input('username', set_value('username'), "required");
 
             echo form_label('Password');
-            echo form_error('password');
             echo form_password('password', "", "required");
 
             echo form_submit('submit', 'Sign In');
