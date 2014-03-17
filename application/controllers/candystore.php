@@ -6,14 +6,9 @@ class CandyStore extends CI_Controller {
 	function __construct() {
 		// Call the Controller constructor
 		parent::__construct();
-<<<<<<< HEAD
 		$this->load->model('user_model');
-=======
-		$config['upload_path'] = './images/product/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$this->load->library('upload', $config);
 		$this->load->library('session');
->>>>>>> e249d719d1456c96b61c089d62615c1da1669499
+
 	}
 
 	function index() {
@@ -49,18 +44,10 @@ class CandyStore extends CI_Controller {
 		if ($this->form_validation->run() == false){
 			$this->load->view('welcome/signup.php');
 		} else {
-<<<<<<< HEAD
 			$this->user_model->register();
-=======
-			//check to make certain values are unique (email, username)
-			//if they are then add this new client to the db with all the required fields
-			//store that the user is logged in in the session
 			$this->session->set_userdata("loggedin", true);
 			//go to the client page
->>>>>>> e249d719d1456c96b61c089d62615c1da1669499
 			redirect("client", "refresh");
-			//otherwise
-				//start again (give an error)
 		}
 	}
 
