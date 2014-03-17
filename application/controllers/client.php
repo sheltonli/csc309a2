@@ -16,15 +16,18 @@ class Client extends CI_Controller {
  */
 
 		$this->load->library('upload', $config);
-		$this->load->library('session');
 
 	}
 
 	function index() {
-		$this->load->model('product_model');
-		$products = $this->product_model->getAll();
-		$data['products']=$products;
-		$this->load->view('product/clientlist.php',$data);
+		if ($this->session->userdata("loggedin")) {
+			$this->load->model('product_model');
+			$products = $this->product_model->getAll();
+			$data['products']=$products;
+			$this->load->view('product/clientlist.php',$data);
+		} else {
+			redirect("candystore","refresh");
+		}
 	}
 
 	function add($id) {
