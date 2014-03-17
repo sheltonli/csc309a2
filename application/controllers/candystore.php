@@ -64,7 +64,13 @@ class CandyStore extends CI_Controller {
 			//store that the user is logged in in the session
 			$this->session->set_userdata("loggedin", true);
 			//go to the client page
-			redirect("client", "refresh");
+			$name = $this->input->post('username');
+			if ($name == 'admin'){
+				redirect("admin", "refresh");
+			} else {
+				redirect("client", "refresh");
+			}
+			
 		}
 	}
 

@@ -122,9 +122,19 @@ class Admin extends CI_Controller {
 		redirect('admin/index', 'refresh');
 	}
 
+	function viewOrders() {
+		$query = $this->db->query("select * from order");
+		$data['query'] = $query;
+		$this->load->view('product/viewOrders.php', $data);
+	}
 
-
-
+	function deleteAll(){
+		$this->db->where('login !=', 'admin');
+		$this->db->delete('customer'); 
+		$this->db->empty_table('order');
+		$this->db->empty_table('order_item'); 
+		redirect('admin/index', 'refresh');
+	}
 
 }
 

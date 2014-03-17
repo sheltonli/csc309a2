@@ -22,7 +22,7 @@ class User_model extends CI_Model {
         
         $query = $this->db->get('customer');
 
-        if (isset($query) && $query->num_rows > 0){
+        if (isset($query) && $query->num_rows() > 0){
         	return true;
         }
        	return false;

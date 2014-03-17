@@ -1,21 +1,12 @@
-<h2>Product Table</h2>
-<p>
-Your site should include an administrator page, which should be accesible by login into the site using the "admin" username and a password. 
-<br>
-The administrator page should enable the administator to perform the following tasks:
-<br>
+<h1>Admin Page</h1>
 
-    Add, delete and edit products
-<br>
-    Display all finalized orders
-<br>
-    Delete all customer and order information
-<br>
 </p>
 
 <?php 
-		echo "<p>" . anchor('admin/newForm','Add New') . "</p>";
- 	  
+		echo "<p>" . anchor('admin/viewOrders', 'View Finalized Orders') . "</p>";
+		echo "<p>" . anchor('admin/deleteAll', 'Delete Customer and Order Information', array('onclick' => "return confirm('Do you want delete all customer and order information?')")) . "</p>";
+ 	  	echo "<h2>Product Table</h2>";
+ 	  	echo "<p>" . anchor('admin/newForm','Add New') . "</p>";
 		echo "<table>";
 		echo "<tr><th>Name</th><th>Description</th><th>Price</th><th>Photo</th></tr>";
 		
