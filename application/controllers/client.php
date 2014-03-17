@@ -66,7 +66,7 @@ class Client extends CI_Controller {
 	}
 
 	function viewcart() {
-		$this->load->view('checkout/cart.php');
+		redirect('cart/index', 'refresh');
 	}
 
     function read($id) {

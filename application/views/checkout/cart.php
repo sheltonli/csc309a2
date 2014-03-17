@@ -1,14 +1,30 @@
 <h2>Look at all that candy in your cart!!</h2>
-<p>
-Edit shopping cart content's (change item quantity, delete items)
-<br>
-The shopping cart should show the total cost for the items selected.
-<br>
-For unfinalized orders, store shopping cart information on the server using a PHP session. 
-<br>
-Store information in the provided database only once orders are finalized.
 </p>
 <?php
+	$total = 0;
 	echo "<p>" . anchor('client/index','Back') . "</p>";
-	echo "<p> put checkout form here </p>";
+	echo "<p>" . anchor('client/gotocheckout','Checkout') . "</p>";
+
+echo "<table>";
+                echo "<tr><th>Name</th><th>Description</th><th>Price</th><th>Photo</th></tr>";
+
+                foreach ($products as $product) {
+                        if ($this->session->userdata($product->id)) {
+				echo "<tr>";
+				echo "<td>" . $product->name . "</td>";
+				echo "<td>" . $product->description . "</td>";
+				echo "<td>" . $product->price . "</td>";
+				echo "<td><img src='" . base_url() . "images/product/" . $product->photo_url . "' width='100px' /></td>";
+
+				echo "<td>" . anchor("cart/remove/$product->id",'Less Candy',"onClick='return confirm(\"Do you really want to remove this item?\");'") . "</td>";
+				echo "<td>" . anchor("cart/add/$product->id",'More Candy') . "</td>";
+				echo "<td>" . anchor("cart/deletecandy/$product->id",'Delete Candy') . "</td>";
+				echo"<td>". $this->session->userdata($product->id) . "</td>";
+                        	echo "</tr>";
+				$total += ($product->price * $this->session->userdata($product->id));
+                        }
+
+                }
+                echo "<table>";
+		echo "<p>". "Your total is: " . $total . "</p>"
 ?>	
