@@ -6,10 +6,9 @@ class CandyStore extends CI_Controller {
 	function __construct() {
 		// Call the Controller constructor
 		parent::__construct();
-		$config['upload_path'] = './images/product/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$this->load->library('upload', $config);
+		$this->load->model('user_model');
 		$this->load->library('session');
+
 	}
 
 	function index() {
@@ -35,32 +34,28 @@ class CandyStore extends CI_Controller {
 	function register(){
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[20]');
-		$this->form_validation->set_rules('first', 'First Name', 'required|min_length[1]|max_length[30]');
-		$this->form_validation->set_rules('last', 'Last Name', 'required|min_length[1]|max_length[30]');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[30]');
-		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|min_length[6]|max_length[30]|matches[password]');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[20]|is_unique[customer.login]');
+		$this->form_validation->set_rules('first', 'First Name', 'trim|required|min_length[1]|max_length[30]');
+		$this->form_validation->set_rules('last', 'Last Name', 'trim|required|min_length[1]|max_length[30]');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[customer.email]');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|max_length[30]');
+		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|min_length[6]|max_length[30]|matches[password]');
 
 		if ($this->form_validation->run() == false){
 			$this->load->view('welcome/signup.php');
 		} else {
-			//check to make certain values are unique (email, username)
-			//if they are then add this new client to the db with all the required fields
-			//store that the user is logged in in the session
+			$this->user_model->register();
 			$this->session->set_userdata("loggedin", true);
 			//go to the client page
 			redirect("client", "refresh");
-			//otherwise
-				//start again (give an error)
 		}
 	}
 
 	function login(){
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 		if ($this->form_validation->run() == false){
 			$this->load->view('welcome/signin.php');
