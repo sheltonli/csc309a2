@@ -76,9 +76,9 @@ class Client extends CI_Controller {
     function paymentconf(){
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('ccnum', 'Credit Card Number', 'required|exact_length[16]|numeric');
-		$this->form_validation->set_rules('ccexpmonth', 'Expiry Month', 'required|callback_ccmonth_check');
-		$this->form_validation->set_rules('ccexpyear', 'Expiry Year', 'required|callback_ccexp_check');
+		$this->form_validation->set_rules('ccnum', 'Credit Card Number', 'trim|required|exact_length[16]|numeric');
+		$this->form_validation->set_rules('ccexpmonth', 'Expiry Month', 'trim|required|callback_ccmonth_check');
+		$this->form_validation->set_rules('ccexpyear', 'Expiry Year', 'trim|required|callback_ccexp_check');
 
 		if ($this->form_validation->run() == false){
 			$this->load->view('checkout/checkout.php');
