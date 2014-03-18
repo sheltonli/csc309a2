@@ -2,7 +2,7 @@
 <p>Your receipt has been emailed to you <br> You may print a receipt for your records</p>
 <?php
 	$total = 0;
-	echo "<p>" . anchor('client/index','Back') . "</p>";
+	
 
 echo "<table>";
                 echo "<tr><th>Name</th><th>Description</th><th>Price</th></tr>";
@@ -19,7 +19,9 @@ echo "<table>";
 
                 }
                 echo "<table>";
-		echo "<p>". "Your total is: " . $total . "</p>"
+		echo "<p>". "Your total is: " . $total . "</p>";
+
+    echo "<p>" . anchor('client/index','Return To Store') . "</p>";
 ?>	
 
 <script language="JavaScript">

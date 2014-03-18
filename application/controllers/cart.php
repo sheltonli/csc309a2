@@ -57,6 +57,57 @@ class Cart extends CI_Controller {
 		redirect("cart/index","refresh");
 	}
 
+	function paymentconf(){
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('ccnum', 'Credit Card Number', 'trim|required|exact_length[16]|numeric');
+		$this->form_validation->set_rules('ccexpmonth', 'Expiry Month', 'trim|required|callback_ccmonth_check');
+		$this->form_validation->set_rules('ccexpyear', 'Expiry Year', 'trim|required|callback_ccexp_check');
+
+		if ($this->form_validation->run() == false){
+			$this->load->view('checkout/checkout.php');
+		} else {
+			//display the printable recepit
+			$this->load->model('product_model');
+			$products = $this->product_model->getAll();
+			$data['products']=$products;
+			$this->load->view('checkout/receipt.php', $data);	
+			//email the receipt
+			//redirect("client", "refresh");
+		}
+	}
+
+	public function ccmonth_check($ccexpmonth){
+		if ($ccexpmonth <= 0){
+			$this->form_validation->set_message('ccmonth_check', 'Invalid month.');
+			return false;
+		} else if ($ccexpmonth > 12){
+			$this->form_validation->set_message('ccmonth_check', 'Invalid month.');
+			return false;
+		}
+		return true;
+	}
+
+	public function ccexp_check(){
+		$date = getdate();
+		$month = $date['mon'];
+		$year = $date['year'];
+
+		$ccmonth = $this->input->post('ccexpmonth');
+   		$ccyear = $this->input->post('ccexpyear');
+
+		if (($year % 100) > $ccyear){
+			$this->form_validation->set_message('ccexp_check', 'Your card is expired.');
+			return false;
+		} else if (($year % 100) == $ccyear) {
+			if ($month > $ccmonth){
+				$this->form_validation->set_message('ccexp_check', 'Your card is expired.');
+				return false;
+			}
+		}
+		return true;
+	}
+
 	function checkout() {
 		//Checkout. This function should collect payment information (credit card number and expiry date) and display a printable receipt (a simple example that shows how to print from JavaScript is available here).
 	}

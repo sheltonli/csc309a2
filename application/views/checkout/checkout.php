@@ -15,7 +15,7 @@
         	echo "<p>" . anchor('client/index','Back') . "</p>";
         	echo "<p> Please fill in your payment information. You will be emailed your receipt.</p>";
 
-            echo form_open('client/paymentconf');
+            echo form_open('cart/paymentconf');
 
         	echo form_label('Credit Card Number');
             echo form_error('ccnum');

@@ -3,7 +3,7 @@
 <?php
 	$total = 0;
 	echo "<p>" . anchor('client/index','Back') . "</p>";
-	echo "<p>" . anchor('client/gotocheckout','Checkout') . "</p>";
+	echo "<p>" . anchor('cart/gotocheckout','Checkout') . "</p>";
 
 echo "<table>";
                 echo "<tr><th>Name</th><th>Description</th><th>Price</th><th>Photo</th></tr>";
