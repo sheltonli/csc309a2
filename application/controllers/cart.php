@@ -72,6 +72,13 @@ class Cart extends CI_Controller {
 			$this->load->model('product_model');
 			$products = $this->product_model->getAll();
 			$data['products']=$products;
+			$total = 0;
+			foreach ($products as $product) {
+                if ($this->session->userdata($product->id)) {
+					$total += ($product->price * $this->session->userdata($product->id));
+                }
+            }
+            $this->session->set_userdata('total', $total);
 			$this->user_model->confirm_order();
 			$this->load->view('checkout/receipt.php', $data);	
 			//email the receipt

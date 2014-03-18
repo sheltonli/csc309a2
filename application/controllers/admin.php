@@ -20,7 +20,7 @@ class Admin extends CI_Controller {
 	}
 
 	function index() {
-		if ($this->session->userdata("loggedin")) {
+		if ($this->session->userdata("loggedin") && $this->session->userdata("username") == 'admin' ) {
 			$this->load->model('product_model');
 			$products = $this->product_model->getAll();
 			$data['products']=$products;
@@ -123,7 +123,7 @@ class Admin extends CI_Controller {
 	}
 
 	function viewOrders() {
-		$query = $this->db->query("select * from order");
+		$query = $this->db->get('order');
 		$data['query'] = $query;
 		$this->load->view('product/viewOrders.php', $data);
 	}

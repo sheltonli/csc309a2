@@ -10,6 +10,7 @@ class User_model extends CI_Model {
    	 	'email'=>$this->input->post('email')
   		);
     $this->session->set_userdata("loggedin", true);
+    $this->session->set_userdata("username", $this->input->post('username'));
 
 		return $this->db->insert('customer',$data);
 	}
@@ -25,6 +26,7 @@ class User_model extends CI_Model {
 
     if (isset($query) && $query->num_rows() > 0){
       $this->session->set_userdata("loggedin", true);
+      $this->session->set_userdata("username", $username);
       
       $id = $this->get_user_id();
       $this->session->set_userdata("user_id", $id);
@@ -50,8 +52,11 @@ class User_model extends CI_Model {
     $ccnum = $this->input->post('ccnum');
     $ccmon = $this->input->post('ccexpmonth');
     $ccyear = $this->input->post('ccexpyear');
+    $total = $this->session->userdata('total');
 
-    
+    $sql = "INSERT INTO candystore.order (customer_id, order_date, order_time, total, creditcard_number, creditcard_month, creditcard_year) VALUES(".$customer_id.", CURRENT_DATE(), CURRENT_TIME(),".$total.",".$ccnum." ,".$ccmon.",".$ccyear.")";
+
+    return $this->db->query($sql);
   }
 
 }
