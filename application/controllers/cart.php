@@ -68,9 +68,11 @@ class Cart extends CI_Controller {
 			$this->load->view('checkout/checkout.php');
 		} else {
 			//display the printable recepit
+			$this->load->model('user_model');
 			$this->load->model('product_model');
 			$products = $this->product_model->getAll();
 			$data['products']=$products;
+			$this->user_model->confirm_order();
 			$this->load->view('checkout/receipt.php', $data);	
 			//email the receipt
 			//redirect("client", "refresh");
@@ -106,10 +108,6 @@ class Cart extends CI_Controller {
 			}
 		}
 		return true;
-	}
-
-	function checkout() {
-		//Checkout. This function should collect payment information (credit card number and expiry date) and display a printable receipt (a simple example that shows how to print from JavaScript is available here).
 	}
 
 	function deletecandy($id) {

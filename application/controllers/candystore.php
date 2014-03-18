@@ -45,7 +45,8 @@ class CandyStore extends CI_Controller {
 			$this->load->view('welcome/signup.php');
 		} else {
 			$this->user_model->register();
-			$this->session->set_userdata("loggedin", true);
+			$id = $this->user_model->get_user_id();
+			$this->session->set_userdata("user_id", $id);
 			//go to the client page
 			redirect("client", "refresh");
 		}
@@ -62,7 +63,7 @@ class CandyStore extends CI_Controller {
 			$this->load->view('welcome/signin.php');
 		} else {
 			//store that the user is logged in in the session
-			$this->session->set_userdata("loggedin", true);
+			
 			//go to the client page
 			$name = $this->input->post('username');
 			if ($name == 'admin'){
