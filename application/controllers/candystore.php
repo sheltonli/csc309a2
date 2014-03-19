@@ -48,7 +48,11 @@ class CandyStore extends CI_Controller {
 			$id = $this->user_model->get_user_id();
 			$this->session->set_userdata("user_id", $id);
 			//go to the client page
-			redirect("client", "refresh");
+			if ($this->input->post('username') == 'admin'){
+				redirect("admin", "refresh");
+			} else {
+				redirect("client", "refresh");
+			}
 		}
 	}
 

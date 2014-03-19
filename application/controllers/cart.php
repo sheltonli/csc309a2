@@ -58,7 +58,6 @@ class Cart extends CI_Controller {
 		if ($this->form_validation->run() == false){
 			$this->load->view('checkout/checkout.php');
 		} else {
-			//display the printable recepit
 			$total = 0;
 			$this->load->model('product_model');
 			$products = $this->product_model->getAll();
@@ -146,6 +145,19 @@ class Cart extends CI_Controller {
 	}
 
 	function gotocheckout() {
-		$this->load->view('checkout/checkout.php');
+		$this->load->model('product_model');
+		$products = $this->product_model->getAll();
+		$count = 0;
+		foreach ($products as $product) {
+      		if ($this->session->userdata($product->id)) {
+      			$count += 1;
+      		}
+    	}
+    	if ($count > 0){
+    		$this->load->view('checkout/checkout.php');
+    	} else {
+    		redirect("cart/index","refresh");
+    	}
+
 	}
 }

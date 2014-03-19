@@ -16,10 +16,10 @@ echo "<table>";
 				echo "<td>" . $product->price . "</td>";
 				echo "<td><img src='" . base_url() . "images/product/" . $product->photo_url . "' width='100px' /></td>";
 
-				echo "<td>" . anchor("cart/remove/$product->id",'Less Candy',"onClick='return confirm(\"Do you really want to remove this item?\");'") . "</td>";
-				echo "<td>" . anchor("cart/add/$product->id",'More Candy') . "</td>";
-				echo "<td>" . anchor("cart/deletecandy/$product->id",'Delete Candy') . "</td>";
-				echo"<td>". $this->session->userdata($product->id) . "</td>";
+				echo "<td>" . anchor("cart/remove/$product->id",'Decrease Quantity') . "</td>";
+				echo "<td>" . anchor("cart/add/$product->id",'Increase Quantity') . "</td>";
+				echo "<td>" . anchor("cart/deletecandy/$product->id",'Remove from Cart', "onClick='return confirm(\"Do you really want to remove this item?\");'") . "</td>";
+				echo"<td>Amount: ". $this->session->userdata($product->id) . "</td>";
                         	echo "</tr>";
 				$total += ($product->price * $this->session->userdata($product->id));
                         }

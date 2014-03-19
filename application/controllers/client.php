@@ -25,9 +25,6 @@ class Client extends CI_Controller {
 			//add it to the cart with quantity 1
 			$this->session->set_userdata($id, 1);
 
-		} else {
-			//increment quantity by 1
-			$this->session->set_userdata($id, $this->session->userdata($id) + 1);
 		}
 		redirect("client/index","refresh");
 	}
@@ -42,6 +39,13 @@ class Client extends CI_Controller {
 				//remove from the cart
 				$this->session->unset_userdata($id);
 			}
+		}
+		redirect("client/index","refresh");
+	}
+
+	function deletecandy($id) {
+		if($this->session->userdata($id)) {
+			$this->session->unset_userdata($id);
 		}
 		redirect("client/index","refresh");
 	}
