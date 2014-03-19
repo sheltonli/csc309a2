@@ -9,7 +9,7 @@
     </head>
 
  	<body>
- 		<h2>Back for more sweets eh?</h2>
+ 		<h2>Back for more sweets, eh?</h2>
 
         <?php 
         	echo "<p>" . anchor('candystore/index','Back') . "</p>";

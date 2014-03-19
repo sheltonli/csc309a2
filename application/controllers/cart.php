@@ -80,7 +80,7 @@ class Cart extends CI_Controller {
 		$email = $this->session->userdata('email');
 		$this->load->library('email');
 
-		$this->email->from('slwacandystore@gmail.com', 'Candystore');
+		$this->email->from('slwacandystore@gmail.com', 'SL & WA Candy Co.');
 		$this->email->to($email);
 
 		$this->email->subject('Candystore - Receipt');

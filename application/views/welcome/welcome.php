@@ -1,4 +1,4 @@
-<h2>Welcome to the Best Candy Store Ever!!</h2>
+<h2>Welcome to SL & WA Candy Co.</h2>
 
 <style>
 	input { display: block;}

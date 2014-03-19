@@ -1,5 +1,5 @@
 <h2>Thank you for buying candy from us!</h2>
-<p>Your receipt has been emailed to you <br> You may print a receipt for your records</p>
+<p>Your receipt has been emailed to you. <br> You may print a receipt for your records.</p>
 <?php
 $total = 0;
 $s = "<table>";
