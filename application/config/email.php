@@ -3,7 +3,7 @@
 $config['useragent']        = 'CodeIgniter';        
 $config['protocol']         = 'smtp';        
 $config['mailpath']         = '/usr/sbin/sendmail';
-$config['smtp_host']        = 'smtp.gmail.com';
+$config['smtp_host']        = 'ssl://smtp.googlemail.com';
 $config['smtp_user']        = 'slwacandystore@gmail.com';
 $config['smtp_pass']        = 'csc309A2';
 $config['smtp_port']        = 465;
