@@ -6,9 +6,6 @@ class Cart extends CI_Controller {
 	function __construct() {
 		// Call the Controller constructor
 		parent::__construct();
-
-		$this->load->model('product_model');
-		$products = $this->product_model->getAll();
 		$this->load->model('user_model');
 
 	}
@@ -63,6 +60,9 @@ class Cart extends CI_Controller {
 		} else {
 			//display the printable recepit
 			$total = 0;
+			$this->load->model('product_model');
+			$products = $this->product_model->getAll();
+			$data['products'] = $products;
 			foreach ($products as $product) {
                 if ($this->session->userdata($product->id)) {
 					$total += ($product->price * $this->session->userdata($product->id));
@@ -76,6 +76,7 @@ class Cart extends CI_Controller {
 	}
 
 	function send_email(){
+		
 		$email = $this->session->userdata('email');
 		$this->load->library('email');
 
@@ -85,13 +86,25 @@ class Cart extends CI_Controller {
 		$this->email->subject('Candystore - Receipt');
 
 		$message = "Your receipt:\n\n";
-		$message .= "Name: ". $_POST['name'] . "\n";
-		$message .= "Phone: ". $_POST['phone'] . "\n";
-		$message .= "Email: ". $_POST['email'] . "\n";
+		
+		$this->load->model('product_model');
+		$products = $this->product_model->getAll();
+
+		foreach ($products as $product) {
+      		if ($this->session->userdata($product->id)) {
+        		$message .= "Product: " . $product->name . " - $" . $product->price . " x " . $this->session->userdata($product->id) . "\n";
+      		}
+    	}
+
+    	$message .= "Total: $" . $this->session->userdata('total') . "\n\n";
+
+    	$message .= "Thank you for your purchase. Please come back for all your candy needs!";
+		
 
 		$this->email->message($message);
-
+		
 		$this->email->send();
+		
 	}
 
 	public function ccmonth_check($ccexpmonth){
