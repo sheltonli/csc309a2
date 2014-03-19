@@ -50,6 +50,11 @@ class Client extends CI_Controller {
 		redirect('cart/index', 'refresh');
 	}
 
+	function go_to_logout(){
+		$this->load->model('user_model');
+		$this->user_model->logout();
+	}
+
     function read($id) {
         $this->load->model('product_model');
         $product = $this->product_model->get($id);

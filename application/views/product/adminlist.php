@@ -5,6 +5,7 @@
 <?php 
 		echo "<p>" . anchor('admin/viewOrders', 'View Finalized Orders') . "</p>";
 		echo "<p>" . anchor('admin/deleteAll', 'Delete Customer and Order Information', array('onclick' => "return confirm('Do you want delete all customer and order information?')")) . "</p>";
+ 	  	echo "<p>" . anchor('admin/go_to_logout','Logout') . "</p>";
  	  	echo "<h2>Product Table</h2>";
  	  	echo "<p>" . anchor('admin/newForm','Add New') . "</p>";
 		echo "<table>";

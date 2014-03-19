@@ -40,6 +40,12 @@ class User_model extends CI_Model {
     return false;
 	}
 
+  function logout(){
+    $this->session->sess_destroy();
+    $this->session->set_userdata("loggedin", false);
+    redirect("candystore", "refresh");
+  }
+
   function get_user_id(){
     $username = $this->input->post('username');
     $this->db->where('login', $username);
