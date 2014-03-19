@@ -43,7 +43,6 @@ class User_model extends CI_Model {
   function logout(){
     $this->session->sess_destroy();
     $this->session->set_userdata("loggedin", false);
-    redirect("candystore", "refresh");
   }
 
   function get_user_id(){

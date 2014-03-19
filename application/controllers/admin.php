@@ -141,6 +141,7 @@ class Admin extends CI_Controller {
 	function go_to_logout(){
 		$this->load->model('user_model');
 		$this->user_model->logout();
+		redirect("candystore", "refresh");
 	}
 }
 
