@@ -7,15 +7,9 @@ class Cart extends CI_Controller {
 		// Call the Controller constructor
 		parent::__construct();
 
-
-		$config['upload_path'] = './images/product/';
-		$config['allowed_types'] = 'gif|jpg|png';
-/*	    	$config['max_size'] = '100';
-		$config['max_width'] = '1024';
-		$config['max_height'] = '768';
- */
-
-		$this->load->library('upload', $config);
+		$this->load->model('product_model');
+		$products = $this->product_model->getAll();
+		$this->load->model('user_model');
 
 	}
 
@@ -68,10 +62,6 @@ class Cart extends CI_Controller {
 			$this->load->view('checkout/checkout.php');
 		} else {
 			//display the printable recepit
-			$this->load->model('user_model');
-			$this->load->model('product_model');
-			$products = $this->product_model->getAll();
-			$data['products']=$products;
 			$total = 0;
 			foreach ($products as $product) {
                 if ($this->session->userdata($product->id)) {
@@ -80,10 +70,28 @@ class Cart extends CI_Controller {
             }
             $this->session->set_userdata('total', $total);
 			$this->user_model->confirm_order();
+			$this->send_email();
 			$this->load->view('checkout/receipt.php', $data);	
-			//email the receipt
-			//redirect("client", "refresh");
 		}
+	}
+
+	function send_email(){
+		$email = $this->session->userdata('email');
+		$this->load->library('email');
+
+		$this->email->from('slwacandystore@gmail.com', 'Candystore');
+		$this->email->to($email);
+
+		$this->email->subject('Candystore - Receipt');
+
+		$message = "Your receipt:\n\n";
+		$message .= "Name: ". $_POST['name'] . "\n";
+		$message .= "Phone: ". $_POST['phone'] . "\n";
+		$message .= "Email: ". $_POST['email'] . "\n";
+
+		$this->email->message($message);
+
+		$this->email->send();
 	}
 
 	public function ccmonth_check($ccexpmonth){

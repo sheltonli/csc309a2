@@ -123,7 +123,12 @@ class Admin extends CI_Controller {
 	}
 
 	function viewOrders() {
-		$query = $this->db->get('order');
+		$this->db->select('*');
+		$this->db->from('order');
+		$this->db->join('order_item', 'order_item.order_id = order.id');
+
+		$query = $this->db->get();
+
 		$data['query'] = $query;
 		$this->load->view('product/viewOrders.php', $data);
 	}
