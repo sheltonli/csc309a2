@@ -95,7 +95,7 @@ class Cart extends CI_Controller {
       		}
     	}
 
-    	$message .= "Total: $" . $this->session->userdata('total') . "\n\n";
+    	$message .= "Total: $" . $this->session->userdata('total') . "\n";
 
     	$message .= "Thank you for your purchase. Please come back for all your candy needs!";
 		
