@@ -29,20 +29,6 @@ class Client extends CI_Controller {
 		redirect("client/index","refresh");
 	}
 
-	function remove($id) {
-		if ($this->session->userdata($id)) {
-			//if it is in the cart
-			//reduce by 1
-			$this->session->set_userdata($id, $this->session->userdata($id) - 1);
-			
-			if ($this->session->userdata($id) == 0) {
-				//remove from the cart
-				$this->session->unset_userdata($id);
-			}
-		}
-		redirect("client/index","refresh");
-	}
-
 	function deletecandy($id) {
 		if($this->session->userdata($id)) {
 			$this->session->unset_userdata($id);
