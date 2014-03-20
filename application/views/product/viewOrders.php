@@ -1,6 +1,7 @@
 <h2>Finalized Orders</h2>
 
 <?php 
+	echo "<p>" . anchor('admin/index','Back') . "</p>";
 	if(isset($query) && $query->num_rows() > 0)	{
 		echo "<table border='1'>";
 		echo "<tr><th>ID</th><th>Customer ID</th><th>Date</th><th>Time</th><th>Total</th><th>Credit Card Number</th><th>Card Expiry Month</th><th>Card Expiry Year</th><th>Product ID</th><th>Quantity</th></tr>";
