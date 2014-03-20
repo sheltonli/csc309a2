@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <style>
-            input { display: block;}
-        </style>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-
-    </head>
-
- 	<body>
  		<h2>Back for more sweets, eh?</h2>
 
         <?php 
@@ -26,6 +16,3 @@
             echo form_submit('submit', 'Sign In');
             echo form_close();
         ?>	
-    </body>
-
-</html>

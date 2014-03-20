@@ -21,14 +21,18 @@ class Admin extends CI_Controller {
 			$this->load->model('product_model');
 			$products = $this->product_model->getAll();
 			$data['products']=$products;
+			$this->load->view('templates/header.php');
 			$this->load->view('product/adminlist.php',$data);
+			$this->load->view('templates/footer.php');
 		} else {
 			redirect("candystore","refresh");
 		}
 	}
 
 	function newForm() {
+		$this->load->view('templates/header.php');
 		$this->load->view('product/newForm.php');
+		$this->load->view('templates/footer.php');
 	}
 
 	function create() {
@@ -58,11 +62,15 @@ class Admin extends CI_Controller {
 		else {
 			if ( !$fileUploadSuccess) {
 				$data['fileerror'] = $this->upload->display_errors();
+				$this->load->view('templates/header.php');
 				$this->load->view('product/newForm.php',$data);
+				$this->load->view('templates/footer.php');
 				return;
 			}
 
+			$this->load->view('templates/header.php');
 			$this->load->view('product/newForm.php');
+			$this->load->view('templates/footer.php');
 		}	
 	}
 
@@ -70,14 +78,18 @@ class Admin extends CI_Controller {
 		$this->load->model('product_model');
 		$product = $this->product_model->get($id);
 		$data['product']=$product;
+		$this->load->view('templates/header.php');
 		$this->load->view('product/adminread.php',$data);
+		$this->load->view('templates/footer.php');
 	}
 
 	function editForm($id) {
 		$this->load->model('product_model');
 		$product = $this->product_model->get($id);
 		$data['product']=$product;
+		$this->load->view('templates/header.php');
 		$this->load->view('product/editForm.php',$data);
+		$this->load->view('templates/footer.php');
 	}
 
 	function update($id) {
@@ -105,7 +117,9 @@ class Admin extends CI_Controller {
 			$product->description = set_value('description');
 			$product->price = set_value('price');
 			$data['product']=$product;
+			$this->load->view('templates/header.php');
 			$this->load->view('product/editForm.php',$data);
+			$this->load->view('templates/footer.php');
 		}
 	}
 
@@ -127,7 +141,9 @@ class Admin extends CI_Controller {
 		$query = $this->db->get();
 
 		$data['query'] = $query;
+		$this->load->view('templates/header.php');
 		$this->load->view('product/viewOrders.php', $data);
+		$this->load->view('templates/footer.php');
 	}
 
 	function deleteAll(){

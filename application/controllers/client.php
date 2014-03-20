@@ -1,5 +1,5 @@
 <?php
- 
+
 class Client extends CI_Controller {
 
 
@@ -13,7 +13,9 @@ class Client extends CI_Controller {
 			$this->load->model('product_model');
 			$products = $this->product_model->getAll();
 			$data['products']=$products;
+			$this->load->view('templates/header.php');
 			$this->load->view('product/clientlist.php',$data);
+			$this->load->view('templates/footer.php');
 		} else {
 			redirect("candystore","refresh");
 		}
@@ -34,7 +36,7 @@ class Client extends CI_Controller {
 			//if it is in the cart
 			//reduce by 1
 			$this->session->set_userdata($id, $this->session->userdata($id) - 1);
-			
+
 			if ($this->session->userdata($id) == 0) {
 				//remove from the cart
 				$this->session->unset_userdata($id);
@@ -60,11 +62,13 @@ class Client extends CI_Controller {
 		redirect("candystore", "refresh");
 	}
 
-    function read($id) {
-        $this->load->model('product_model');
-        $product = $this->product_model->get($id);
-        $data['product']=$product;
-        $this->load->view('product/clientread.php',$data);
-    }
+	function read($id) {
+		$this->load->model('product_model');
+		$product = $this->product_model->get($id);
+		$data['product']=$product;
+		$this->load->view('templates/header.php');
+		$this->load->view('product/clientread.php',$data);
+		$this->load->view('templates/footer.php');
+	}
 
 }

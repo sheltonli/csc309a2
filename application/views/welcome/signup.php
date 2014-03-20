@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <style>
-            input { display: block;}
-        </style>
-
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
         <script>
         function checkPassword(){
             var P1 = $("#pass1");
@@ -19,9 +12,6 @@
             }
         }
         </script>
-    </head>
-
-    <body>
         <h2>Sign up to start purchasing sweets!</h2>
         <?php 
         	echo "<p>" . anchor('candystore/index','Back') . "</p>";
@@ -55,6 +45,3 @@
             echo form_submit('submit', 'Register');
             echo form_close();
         ?>	
-    </body>
-
-</html>

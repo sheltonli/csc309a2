@@ -1,5 +1,4 @@
 <h2>Look at all that candy in your cart!!</h2>
-</p>
 <?php
 	$total = 0;
 	echo "<p>" . anchor('client/index','Back') . "</p>";
