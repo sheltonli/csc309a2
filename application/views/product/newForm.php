@@ -1,10 +1,5 @@
 <h2>New Product</h2>
 
-<style>
-	input { display: block;}
-	
-</style>
-
 <?php 
 	echo "<p>" . anchor('admin/index','Back') . "</p>";
 	

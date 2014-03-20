@@ -15,7 +15,9 @@ class Cart extends CI_Controller {
 			$this->load->model('product_model');
 			$products = $this->product_model->getAll();
 			$data['products']=$products;
+			$this->load->view('templates/header.php');
 			$this->load->view('checkout/cart.php',$data);
+			$this->load->view('templates/footer.php');
 		} else {
 			redirect("candystore","refresh");
 		}
@@ -39,7 +41,7 @@ class Cart extends CI_Controller {
 			//if it is in the cart
 			//reduce by 1
 			$this->session->set_userdata($id, $this->session->userdata($id) - 1);
-			
+
 			if ($this->session->userdata($id) == 0) {
 				//remove from the cart
 				$this->session->unset_userdata($id);
@@ -56,26 +58,30 @@ class Cart extends CI_Controller {
 		$this->form_validation->set_rules('ccexpyear', 'Expiry Year', 'trim|required|callback_ccexp_check');
 
 		if ($this->form_validation->run() == false){
+			$this->load->view('templates/header.php');
 			$this->load->view('checkout/checkout.php');
+			$this->load->view('templates/footer.php');
 		} else {
 			$total = 0;
 			$this->load->model('product_model');
 			$products = $this->product_model->getAll();
 			$data['products'] = $products;
 			foreach ($products as $product) {
-                if ($this->session->userdata($product->id)) {
+				if ($this->session->userdata($product->id)) {
 					$total += ($product->price * $this->session->userdata($product->id));
-                }
-            }
-            $this->session->set_userdata('total', $total);
+				}
+			}
+			$this->session->set_userdata('total', $total);
 			$this->user_model->confirm_order();
 			$this->send_email();
+			$this->load->view('templates/header.php');
 			$this->load->view('checkout/receipt.php', $data);	
+			$this->load->view('templates/footer.php');
 		}
 	}
 
 	function send_email(){
-		
+
 		$email = $this->session->userdata('email');
 		$this->load->library('email');
 
@@ -85,25 +91,25 @@ class Cart extends CI_Controller {
 		$this->email->subject('Candystore - Receipt');
 
 		$message = "Your receipt:\n\n";
-		
+
 		$this->load->model('product_model');
 		$products = $this->product_model->getAll();
 
 		foreach ($products as $product) {
-      		if ($this->session->userdata($product->id)) {
-        		$message .= "Product: " . $product->name . " - $" . $product->price . " x " . $this->session->userdata($product->id) . "\n";
-      		}
-    	}
+			if ($this->session->userdata($product->id)) {
+				$message .= "Product: " . $product->name . " - $" . $product->price . " x " . $this->session->userdata($product->id) . "\n";
+			}
+		}
 
-    	$message .= "Total: $" . $this->session->userdata('total') . "\n";
+		$message .= "Total: $" . $this->session->userdata('total') . "\n";
 
-    	$message .= "Thank you for your purchase. Please come back for all your candy needs!";
-		
+		$message .= "Thank you for your purchase. Please come back for all your candy needs!";
+
 
 		$this->email->message($message);
-		
+
 		$this->email->send();
-		
+
 	}
 
 	public function ccmonth_check($ccexpmonth){
@@ -123,7 +129,7 @@ class Cart extends CI_Controller {
 		$year = $date['year'];
 
 		$ccmonth = $this->input->post('ccexpmonth');
-   		$ccyear = $this->input->post('ccexpyear');
+		$ccyear = $this->input->post('ccexpyear');
 
 		if (($year % 100) > $ccyear){
 			$this->form_validation->set_message('ccexp_check', 'Your card is expired.');
@@ -149,15 +155,17 @@ class Cart extends CI_Controller {
 		$products = $this->product_model->getAll();
 		$count = 0;
 		foreach ($products as $product) {
-      		if ($this->session->userdata($product->id)) {
-      			$count += 1;
-      		}
-    	}
-    	if ($count > 0){
-    		$this->load->view('checkout/checkout.php');
-    	} else {
-    		redirect("cart/index","refresh");
-    	}
+			if ($this->session->userdata($product->id)) {
+				$count += 1;
+			}
+		}
+		if ($count > 0){
+			$this->load->view('templates/header.php');
+			$this->load->view('checkout/checkout.php');
+			$this->load->view('templates/footer.php');
+		} else {
+			redirect("cart/index","refresh");
+		}
 
 	}
 }

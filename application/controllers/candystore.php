@@ -12,15 +12,21 @@ class CandyStore extends CI_Controller {
 	}
 
 	function index() {
+		$this->load->view('templates/header.php');
 		$this->load->view('welcome/welcome.php');
+		$this->load->view('templates/footer.php');
 	}
 
 	function signup() {
+		$this->load->view('templates/header.php');
 		$this->load->view('welcome/signup.php');
+		$this->load->view('templates/footer.php');
 	}
 
 	function signin() {
+		$this->load->view('templates/header.php');
 		$this->load->view('welcome/signin.php');
+		$this->load->view('templates/footer.php');
 	}
 
 	function loadadmin() {
@@ -42,7 +48,9 @@ class CandyStore extends CI_Controller {
 		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|min_length[6]|max_length[30]|matches[password]');
 
 		if ($this->form_validation->run() == false){
+			$this->load->view('templates/header.php');
 			$this->load->view('welcome/signup.php');
+			$this->load->view('templates/footer.php');
 		} else {
 			$this->user_model->register();
 			$id = $this->user_model->get_user_id();
@@ -64,10 +72,12 @@ class CandyStore extends CI_Controller {
 
 
 		if ($this->form_validation->run() == false){
+			$this->load->view('templates/header.php');
 			$this->load->view('welcome/signin.php');
+			$this->load->view('templates/footer.php');
 		} else {
 			//store that the user is logged in in the session
-			
+
 			//go to the client page
 			$name = $this->input->post('username');
 			if ($name == 'admin'){
@@ -75,7 +85,7 @@ class CandyStore extends CI_Controller {
 			} else {
 				redirect("client", "refresh");
 			}
-			
+
 		}
 	}
 
